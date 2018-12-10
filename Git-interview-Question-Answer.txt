@@ -1,0 +1,179 @@
+Interview Questions on git
+==========================
+1. what is git ?
+Ans.Git is a version-control system for tracking changes in computer files and coordinating work on those files among multiple people. It is primarily used for 
+     source-code management in software development, but it can be used to keep track of changes in any set of files
+
+2. what is difference between git and github and gitlab?
+Ans.GitHub is a publicly available, free service which requires all code (unless you have a paid account) be made open. ... GitHub currently hosts the source code for tens of
+    thousands of open source projects. GitLab is a github like service that organizations can use to provide internal management of git repositories.
+
+3. any other version control tools other git? -->svn
+
+4. what is difference between svn and git?
+Ans.Git is a distributed VCS; SVN is a non-distributed VCS.(Version Control System)
+    Git has a centralized server and repository; SVN does not have a centralized server or repository.
+    The content in Git is stored as metadata; SVN stores files of content.
+    Git branches are easier to work with than SVN branches.
+    Git does not have the global revision number feature like SVN has.
+    Git has better content protection than SVN.
+    Git was developed for Linux kernel by Linus Torvalds; SVN was developed by CollabNet, Inc.
+    Git is distributed under GNU, and its maintenance overseen by Junio Hamano; Apache Subversion, or SVN, is distributed under the open source license.
+   
+5. what is merge conflicts have you faced ever in you experience? if you face how you resolve?
+Ans.1.Open Terminal.
+    2.cd REPOSITORY-NAME
+    3.git status
+    4.Open your favorite text editor, such as Atom, and navigate to the file that has merge conflicts.
+    5.To see the beginning of the merge conflict in your file, search the file for the conflict marker <<<<<<<. When you open the file in your text editor, you'll see the
+      changes from the HEAD or base branch after the line <<<<<<< HEAD. Next, you'll see =======, which divides your changes from the changes in the other branch, followed by
+      >>>>>>> BRANCH-NAME. In this example, one person wrote "open an issue" in the base or HEAD branch and another person wrote "ask your question in IRC" in the compare
+       branch or branch-a.
+    6.Decide if you want to keep only your branch's changes, keep only the other branch's changes, or make a brand new change, which may incorporate changes from both branches.
+      Delete the conflict markers <<<<<<<, =======, >>>>>>> and make the changes you want in the final merge. In this example, both changes are incorporated into the final
+      merge:
+    7.git add .
+    8.git commit -m "Resolved merge conflict by incorporating both suggestions."
+
+6. what is git stash?
+Ans.Often, when you’ve been working on part of your project, things are in a messy state and you want to switch branches for a bit to work on something else. The problem is,
+     you don’t want to do a commit of half-done work just so you can get back to this point later. The answer to this issue is the git stash command.
+     Stashing takes the dirty state of your working directory — that is, your modified tracked files and staged changes — and saves it on a stack of unfinished changes that
+     you can reapply at any time
+     #git stash
+     $ git status
+     # On branch master
+     nothing to commit, working directory clean
+     #git stash apply
+
+
+7. what is git HEAD?
+Ans. HEAD is a reference to the last commit in the currently checked-out branch.
+     HEAD it means (the reference to) current commit
+     HEAD~1 means (the reference to) 1 commit before
+     HEAD~87 means (the reference to) 87 commits before
+     git checkout HEAD~1 will actually GO to that reference/commit
+
+8. what is staging area in git?
+Ans.Staging is a step before the commit process in git. That is, a commit in git is performed in two steps: staging and actual commit.
+    As long as a changeset is in the staging area, git allows you to edit it as you like (replace staged files with other versions of staged files, remove changes from staging,
+     etc.).
+    
+
+9. what is difference between git fetch and pull and clone?
+Ans. Git Pull:-From what I understand, git pull will pull down from a remote whatever you ask (so, whatever trunk you’re asking for) and instantly merge it into the branch  
+               you’re in when you make the request. Pull is a high-level request that runs ‘fetch’ then a ‘merge’ by default, or a rebase with ‘–rebase’. You could do without
+               it, it’s just a convenience
+               %> git checkout localBranch
+               %> git pull origin master
+               %> git branch
+                  master
+               * localBranch
+    Git fetch:-Fetch is similar to pull, except it won’t do any merging
+              %> git checkout localBranch
+              %> git fetch origin remoteBranch 
+              %> git branch
+                 master
+                * localBranch
+                  remoteBranch
+               So, the fetch will have pulled down the remoteBranch and put it into a local branch called “remoteBranch”. creates a local copy of a remote branch which you
+               shouldn’t manipulate directly; instead create a proper local branch and work on that. ‘git checkout’ has a confusing feature though. If you ‘checkout’ a local
+                copy of a remote branch, it creates a local copy and sets up a merge to it by default.
+
+
+   Git clone:-Git clone will clone a repo int a newly created directory. It’s useful for when you’re setting up your local doodah
+               %> cd newfolder
+               %> git clone git@github.com:whatever/something.git
+               %> git branch
+                  * master
+                  remoteBranch
+
+10. what is difference between git merge and rebase?
+Ans. Suppose originally there were 3 commits, A,B,C:
+
+      A-B-C
+
+     Then developer Dan created commit D, and developer Ed created commit E:
+
+      A-B-C-D-E
+
+     Obviously, this conflict should be resolved somehow. For this, there are 2 ways:
+
+     MERGE:
+
+     A-B-C-D-E-M
+
+     Both commits D and E are still here, but we create merge commit M that inherits changes from both D and E. However, this creates diamond shape, which many people find very
+     confusing.
+
+     REBASE:
+
+     A-B-C-D-E-R
+
+     We create commit R, which actual file content is identical to that of merge commit M above. But, we get rid of commit E, like it never existed (denoted by dots -
+     vanishing  line). Because of this obliteration, E should be local to developer Ed and should have never been pushed to any other repository. Advantage of rebase is that   
+     diamond shape is avoided, and history stays nice straight line - most developers love that!
+
+
+11. what is .gitingnore file? what is the purpose of the file?
+Ans:-gitignore is a file in which you decide that which file or folder you don't want to commit and that are unused for other contributors for your project
+
+12. what is git branch? have you worked on branches?
+Ans:-https://git-scm.com/book/en/v1/Git-Branching-What-a-Branch-Is
+
+13. how to merge branches?
+Ans-# Start a new feature
+     git checkout -b new-feature master
+    # Edit some files
+      git add <file>
+      git commit -m "Start a feature"
+    # Edit some files
+      git add <file>
+      git commit -m "Finish a feature"
+    # Merge in the new-feature branch
+      git checkout master
+      git merge new-feature
+      git branch -d new-feature
+
+14. what is cherrypic in git?
+Ans:- Cherry picking in git means to choose a commit from one branch and apply it onto another.
+      This is in contrast with other ways such as merge and rebase which normally apply many commits onto another branch.
+      Make sure you are on the branch you want to apply the commit to.
+      #git checkout master
+      Execute the following:
+      #git cherry-pick <commit-hash>
+
+15. how to create a git project?
+Ans:-#git init
+     #git add hello.html
+     #git commit -m "First Commit"
+
+16. how to check difference in between two files?
+Ans:-git diff HEAD:full/path/to/foo full/path/to/bar
+
+17. how edit the committed message?
+Ans:-git commit --amend -m "New commit message"(git rebase --continue)
+
+18. how to check the last few commits?
+Ans:-# git log
+
+19. how to delete remote baranch and local branch ?
+Ans:-$ git push --delete <remote_name> <branch_name>
+     $git branch -d <branch_name>
+     $git branch -D branch_name
+	
+     The -d option is an alias for --delete, which only deletes the branch if it has already been fully merged in its upstream branch. You could also use -D, which is an alias
+     for --delete --force, which deletes the branch "irrespective of its merged status."
+
+20. how to create local branch?
+Ans:-#git checkout -b [name_of_your_new_branch]
+     #git push origin [name_of_your_new_branch]
+
+
+21. what is tag.
+Ans:-#git-tag - Create, list, delete or verify a tag object signed with GPG
+
+22. how to roll back committed code.
+Ans:-#git reset --hard <tag/branch/commit id>
+
+
